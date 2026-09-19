@@ -1,5 +1,5 @@
 # virtual enviroment
-from personal_library import display_menu, add_book_title, main
+from personal_library import display_menu, add_book_title, remove_a_book, main
 
 # Tests if display_menu function works
 def test_display_menu_add_book(monkeypatch):
@@ -58,3 +58,33 @@ def test_duplicate_book_title(monkeypatch):
     assert len(library) == 1
     assert library["The Hobbit"]["book_author"] == "Different Author"
     assert library["The Hobbit"]["book_year"] == "2020"
+
+# Test if remove a book function works
+def test_remove_a_book(monkeypatch):
+    monkeypatch.setattr("builtins.input", lambda _: "The Hobbit")
+
+    library = {
+        "The Hobbit": {
+            "book_author": "J.R.R. Tolkien",
+            "book_year": "1937"
+        }
+    }
+
+    remove_a_book(library)
+
+    assert "The Hobbit" not in library
+
+# Test removing a book that does not exist
+def test_remove_a_book_not_found(monkeypatch):
+    monkeypatch.setattr("builtins.input", lambda _: "Fake Book")
+    
+    library = {
+         "The Hobbit": {
+            "book_author": "J.R.R. Tolkien",
+            "book_year": "1937"
+        }
+    }
+       
+    remove_a_book(library)
+       
+    assert "The Hobbit" in library 
