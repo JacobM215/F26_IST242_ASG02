@@ -23,7 +23,7 @@ def display_menu():
 
 """
 Allows user to enter book title, author, and year it was published.
-The option is envoked when the user's input = 1.
+The option is invoked when the user's input = 1.
 
 Parameters:
     library
@@ -42,7 +42,26 @@ def add_book_title(library):
         "book_year": book_year 
     }
 
-    print(f"Book title '{book_title}' has been added to your personal library.")
+    print(f"'{book_title}' has been added to your personal library.")
+
+"""
+Allows user to remove an existing book title, fails if not found.
+The option is invoked when the user's input = 2.
+
+Parameters:
+    library
+Returns:
+    None
+"""
+
+def remove_a_book(library):
+    book_title = input("Enter the book title: ")
+
+    if book_title in library:
+        del library[book_title]
+        print(f"'{book_title}' has been removed from your personal library.")
+    else:
+        print(f"'{book_title}' was not found in your personal library.")
 
 def main():
     library = {}
@@ -53,6 +72,8 @@ def main():
 
         if option == "1":
             add_book_title(library)
+        elif option == "2":
+            remove_a_book(library)
         else:
             print("Invalid Choice. Please enter (1, 2, 3, 4, or 5)")
 
