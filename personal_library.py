@@ -63,6 +63,19 @@ def remove_a_book(library):
     else:
         print(f"'{book_title}' was not found in your personal library.")
 
+def list_all_books(library):
+    books = []
+
+    for book_title in library:
+        book_author = library[book_title]["book_author"]
+        book_year = library[book_title]["book_year"]
+
+        books.append((book_title, book_author, book_year))
+
+    return books
+    
+    
+
 def main():
     library = {}
     keep_running = True
@@ -74,6 +87,11 @@ def main():
             add_book_title(library)
         elif option == "2":
             remove_a_book(library)
+        elif option == "3":
+            books = list_all_books(library)
+            for book_title, book_author, book_year in books:
+                print(f"{book_title} by {book_author} ({book_year})")
+
         else:
             print("Invalid Choice. Please enter (1, 2, 3, 4, or 5)")
 
