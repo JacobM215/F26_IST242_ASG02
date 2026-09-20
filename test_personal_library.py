@@ -1,5 +1,5 @@
 # virtual enviroment
-from personal_library import display_menu, add_book_title, remove_a_book, main
+from personal_library import display_menu, add_book_title, remove_a_book, list_all_books, main
 
 # Tests if display_menu function works
 def test_display_menu_add_book(monkeypatch):
@@ -88,3 +88,11 @@ def test_remove_a_book_not_found(monkeypatch):
     remove_a_book(library)
        
     assert "The Hobbit" in library 
+
+# Test if empty library returns empty list
+def test_list_all_books_empty():
+    library = {}
+
+    books = list_all_books(library)
+
+    assert books == []
