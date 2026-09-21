@@ -74,7 +74,18 @@ def list_all_books(library):
 
     return books
     
-    
+def search_books(library):
+    search_title = input("Enter the book title to search: ")
+    books = []
+
+    for book_title in library:
+        if search_title.lower() in book_title.lower():
+            book_author = library[book_title]["book_author"]
+            book_year = library[book_title]["book_year"]
+
+            books.append((book_title, book_author, book_year))
+
+    return books
 
 def main():
     library = {}
@@ -91,7 +102,13 @@ def main():
             books = list_all_books(library)
             for book_title, book_author, book_year in books:
                 print(f"{book_title} by {book_author} ({book_year})")
-
+        elif option == "4":
+            books = search_books(library)
+            if books:
+                for book_title, book_author, book_year in books:
+                    print(f"{book_title} by {book_author} ({book_year})")
+            else:
+                print("No books were found.")
         else:
             print("Invalid Choice. Please enter (1, 2, 3, 4, or 5)")
 
