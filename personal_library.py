@@ -9,13 +9,14 @@ Returns:
 """
 
 def display_menu():
-    print("Please select an option (1-5):")
+    print("Please select an option (1-6):")
     print("------------------------")
     print("1. Add Book Title")
     print("2. Remove Book Title")
     print("3. List Book Titles")
     print("4. Search Book Title")
-    print("5. Exit")
+    print("5. Show Author Statistics")
+    print("6. Exit")
     print()
 
     option = input("Enter your choice: ")
@@ -87,6 +88,19 @@ def search_books(library):
 
     return books
 
+def author_statistics(library):
+    statistics = {}
+
+    for book_title in library:
+        book_author = library[book_title]["book_author"]
+
+        if book_author in statistics:
+            statistics[book_author] += 1
+        else:
+            statistics[book_author] = 1
+
+    return statistics
+
 def main():
     library = {}
     keep_running = True
@@ -109,6 +123,13 @@ def main():
                     print(f"{book_title} by {book_author} ({book_year})")
             else:
                 print("No books were found.")
+    
+        elif option == "5":
+            statistics = author_statistics(library)
+            print("Books per author:")
+
+            for book_author in statistics:
+                print(f"{book_author}: {statistics[book_author]}")
         else:
             print("Invalid Choice. Please enter (1, 2, 3, 4, or 5)")
 
