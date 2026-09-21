@@ -1,5 +1,5 @@
 # virtual enviroment
-from personal_library import display_menu, add_book_title, remove_a_book, list_all_books, main
+from personal_library import display_menu, add_book_title, remove_a_book, list_all_books, search_books, main
 
 # Tests if display_menu function works
 def test_display_menu_add_book(monkeypatch):
@@ -96,3 +96,23 @@ def test_list_all_books_empty():
     books = list_all_books(library)
 
     assert books == []
+
+# Test search feature if part of book title works
+def test_search_books(monkeypatch):
+    monkeypatch.setattr("builtins.input", lambda _: "ho")
+
+    library = {
+            "The Hobbit": {
+                "book_author": "J.R.R. Tolkien",
+                "book_year": "1937"
+            },
+            "1984": {
+                "book_author": "George Orwell",
+                "book_year": "1949"
+            }
+        }
+    books = search_books(library)
+
+    assert books == [
+        ("The Hobbit", "J.R.R. Tolkien", "1937")
+    ]
