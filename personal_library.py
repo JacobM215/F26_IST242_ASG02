@@ -7,6 +7,7 @@ Parameters:
 Returns:
     output
 """
+import json
 
 def display_menu():
     print("Please select an option (1-6):")
@@ -16,7 +17,7 @@ def display_menu():
     print("3. List Book Titles")
     print("4. Search Book Title")
     print("5. Show Author Statistics")
-    print("6. Exit")
+    print("6. Save and Exit")
     print()
 
     option = input("Enter your choice: ")
@@ -101,8 +102,30 @@ def author_statistics(library):
 
     return statistics
 
+def load_library():
+    try:
+        with open("library_data.json", "r") as file:
+            library = json.load(file)
+
+        print(f"Loaded {len(library)} book(s) from library_data.json.")
+        return library
+    
+    except (json.JSONDecodeError, FileNotFoundError):
+        pass
+
+    print(f"Loaded 0 books from library_data.json.")
+    return{}
+
+def save_library(library):
+    with open("library_data.json", "w") as file:
+        json.dump(library, file, indent=4)
+        
+    print("Library saved to library_data.json.")
+        
+    
+
 def main():
-    library = {}
+    library = load_library()
     keep_running = True
 
     while keep_running:
@@ -122,16 +145,17 @@ def main():
                 for book_title, book_author, book_year in books:
                     print(f"{book_title} by {book_author} ({book_year})")
             else:
-                print("No books were found.")
-    
+                print("No books were found.")   
         elif option == "5":
             statistics = author_statistics(library)
             print("Books per author:")
-
             for book_author in statistics:
                 print(f"{book_author}: {statistics[book_author]}")
+        elif option == "6":
+            save_library(library)
+            keep_running = False
         else:
-            print("Invalid Choice. Please enter (1, 2, 3, 4, or 5)")
+            print("Invalid Choice. Please enter (1, 2, 3, 4, 5, or 6)")
 
 if __name__ == "__main__":
     main()
