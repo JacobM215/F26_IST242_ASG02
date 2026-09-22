@@ -1,5 +1,5 @@
 # virtual enviroment
-from personal_library import display_menu, add_book_title, remove_a_book, list_all_books, search_books, main
+from personal_library import display_menu, add_book_title, remove_a_book, list_all_books, search_books, author_statistics, load_library, save_library, main
 
 # Tests if display_menu function works
 def test_display_menu_add_book(monkeypatch):
@@ -116,3 +116,43 @@ def test_search_books(monkeypatch):
     assert books == [
         ("The Hobbit", "J.R.R. Tolkien", "1937")
     ]
+
+# Test if author statistics works
+def test_author_statistics():
+    library = {
+        "The Hobbit": {
+            "book_author": "J.R.R. Tolkien",
+            "book_year": "1937"
+        },
+        "1984": {
+            "book_author": "George Orwell",
+            "book_year": "1949"
+        }
+    }
+
+    statistics = author_statistics(library)
+    assert statistics == {
+        "George Orwell": 1,
+        "J.R.R. Tolkien": 1
+    }
+
+# Tests if function returns a dictionary
+def test_load_library():
+    library = load_library()
+
+    assert isinstance(library, dict)
+
+# Test to see if function savs and loads correctly
+def test_save_library():
+    library = {
+            "The Hobbit": {
+                "book_author": "J.R.R. Tolkien",
+                "book_year": "1937"
+            }
+    }
+
+    save_library(library)
+
+    loaded_library = load_library()
+
+    assert loaded_library == library
