@@ -75,7 +75,16 @@ def list_all_books(library):
         books.append((book_title, book_author, book_year))
 
     return books
-    
+
+"""
+Searches fors books in the library by their title.
+Prompts user to search for title to find matching books.
+
+Parameters:
+    library
+Returns:
+    books
+"""
 def search_books(library):
     search_title = input("Enter the book title to search: ")
     books = []
@@ -89,6 +98,14 @@ def search_books(library):
 
     return books
 
+"""
+Shows the numbers of books per authur in the library.
+
+Parameters:
+    library
+Returns:
+    statistics
+"""
 def author_statistics(library):
     statistics = {}
 
@@ -102,6 +119,15 @@ def author_statistics(library):
 
     return statistics
 
+"""
+Load library from JSON file.
+Returns empty if rhe file is not found/
+
+Parameters:
+    None
+Returns:
+    library
+"""
 def load_library():
     try:
         with open("library_data.json", "r") as file:
@@ -116,14 +142,27 @@ def load_library():
     print(f"Loaded 0 books from library_data.json.")
     return{}
 
+"""
+Saves the current library to a JSON file.
+Parameters:
+    library
+Returns:
+    None
+"""
 def save_library(library):
     with open("library_data.json", "w") as file:
         json.dump(library, file, indent=4)
         
     print("Library saved to library_data.json.")
-        
-    
-
+         
+"""
+Main control loops for personal library.
+Processes user choices and saves the library before exiting.
+Parameters:
+    None
+Returns:
+    None
+"""
 def main():
     library = load_library()
     keep_running = True
